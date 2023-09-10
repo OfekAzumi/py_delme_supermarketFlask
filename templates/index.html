@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Supermarket</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('homepage')}}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('shopped')}}">My Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('aboutus')}}">About Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="row row-cols-1 row-cols-md-6 g-2">
+
+        {% for prd in market %}
+            <div class="col">
+                <div class="card">
+                    <img src="https://picsum.photos/200/10{{loop.index % 10}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ prd["name"] }},  {{ prd["price"] }} </h5>
+                        <a  class="btn btn-secondary" href="{{ url_for('process', slc = loop.index - 1 )}}">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %} <br>
+    </div>
+    <h6>cart total is {{sum}}$</h6>    
+
+    <a class="btn btn-secondary" href="{{ url_for('reset')}}"> Reset Cart </a><br>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
